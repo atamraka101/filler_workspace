@@ -47,6 +47,12 @@ int	init_players(const int fd, t_players *player)
 	return (0);
 }
 
+int	set_map_and_pieces(int fd, t_map *map, t_piece *piece, t_piece *player)
+{
+
+
+	return ();
+}
 
 int	main(void)
 {
@@ -58,7 +64,8 @@ int	main(void)
 	{
 		while (1)
 		{
-
+			if(!(get_map_and_pieces(FD, &map, &piece, &player)))
+				break ;
 		}
 	}
 

@@ -6,7 +6,7 @@
 /*   By: atamraka <atamraka@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/29 14:19:27 by atamraka          #+#    #+#             */
-/*   Updated: 2022/09/30 15:22:51 by atamraka         ###   ########.fr       */
+/*   Updated: 2022/10/02 13:47:20 by atamraka         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,11 +23,14 @@ typedef struct		s_players
 
 typedef struct		s_piece
 {
-
+	int row;
+	int col;
 }					t_piece;
 
 typedef struct		s_map
 {
+	int				row;
+	int				col;
 
 }					t_map;
 

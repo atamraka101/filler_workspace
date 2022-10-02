@@ -9,8 +9,8 @@ int	assign_letters(char *line, t_players *player)
 			(ft_strstr(line, "$$$ exec p2") != NULL) && \
 			ft_strstr(line, "atamraka" != NULL))
 	{
-		player->me = 'O';
-		player->enemy = 'X';
+		player->me = 'X';
+		player->enemy = 'O';
 		return (1);
 	}
 	else if ((ft_strstr(line, "$$$ exec p1") != NULL && \
@@ -18,8 +18,8 @@ int	assign_letters(char *line, t_players *player)
 			(ft_strstr(line, "$$$ exec p2") != NULL) && \
 			ft_strstr(line, "atamraka" == NULL))
 	{
-		player->me = 'X';
-		player->enemy = 'O';
+		player->me = 'O';
+		player->enemy = 'X';
 		return (1);
 	}
 	return (0);
@@ -47,11 +47,58 @@ int	init_players(const int fd, t_players *player)
 	return (0);
 }
 
-int	set_map_and_pieces(int fd, t_map *map, t_piece *piece, t_piece *player)
+int	get_map_size(t_map *map, char *line)
 {
+	char	*row;
+	char	*col;
 
+	row = ft_strchr(line, ' ') + 1;
+	col = ft_strrchr(line, ' ') + 1;
+	if (!row || !col)
+		return (0);
+	map->row = ft_atoi(row);
+	map->col = ft_atoi(col);
+	if (map->row <= 0 || map->col <= 0)
+		return (0);
+	return (1);
+}
 
-	return ();
+int	get_piece_size(t_piece *piece, char *line)
+{
+	char	*row;
+	char	*col;
+
+	row = ft_strchr(line, ' ') + 1;
+	col = ft_strrchr(line, ' ') + 1;
+	if (!row || !col)
+		return (0);
+	piece->row = ft_atoi(row);
+	piece->col = ft_atoi(col);
+	if (piece->row <= 0 || piece->col <= 0)
+		return (0);
+	return (1);
+}
+
+int	get_map_and_pieces_size(int fd, t_map *map, t_piece *piece, t_piece *player)
+{
+	char *line;
+
+	line = NULL;
+	if (get_next_line(fd, &line) > 0)
+	{
+		if(ft_strstr(line, "Plateau"))
+		{
+			if (!get_map_size(map, line))
+				return (0);
+		}
+		if (ft_strrchr(line, "Piece"))
+		{
+			if (!get_piece_size(piece, line))
+				return (0);
+		}
+		ft_strdel(&line);
+	}
+	return (1);
 }
 
 int	main(void)
@@ -64,8 +111,9 @@ int	main(void)
 	{
 		while (1)
 		{
-			if(!(get_map_and_pieces(FD, &map, &piece, &player)))
+			if(!(get_map_and_pieces_size(FD, &map, &piece, &player))) //
 				break ;
+
 		}
 	}
 

@@ -117,12 +117,6 @@ int	main(void)
 		}
 	}
 
-
-
-
-
-
-
 	system("leaks a.out");
 	return (1);
 }
